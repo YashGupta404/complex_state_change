@@ -8,28 +8,12 @@ function App() {
   });
 
   function handleChange(event){
+    event.preventDefault()
     const {name,value} = event.target;
     setContact((previousValue)=>{
-      if(name === "fName"){
        return{
-        fName: value,
-        lName: previousValue.lName,
-        email: previousValue.email
-       }
-      }
-      else if(name === "lName"){
-       return{
-        fName: previousValue.fName,
-        lName: value,
-        email: previousValue.email
-       }
-      }
-      else if(name === "email"){
-              return{
-                fName: previousValue.fName,
-                lName: previousValue.lName,
-                email: value
-              } 
+        ...previousValue,
+        [name]: value //Here [name] here the [] brackets are important as we want to use the name variable not "name" string as key
       }
     })
 
@@ -45,7 +29,7 @@ function App() {
         <input onChange={handleChange} name="fName" placeholder="First Name" />
         <input onChange={handleChange} name="lName" placeholder="Last Name" />
         <input onChange={handleChange} name="email" placeholder="Email" />
-        <button>Submit</button>
+        <button onChange={handleChange}>Submit</button>
       </form>
     </div>
   );
